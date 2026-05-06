@@ -1,11 +1,11 @@
-const CACHE_NAME = "dm-calculator-v2-add-tables";
+const CACHE_NAME = "dm-calculator-unique-install-v3";
 const ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./icon-192.png",
-  "./icon-512.png",
-  "./apple-touch-icon.png"
+  "/DM-calculator/",
+  "/DM-calculator/index.html",
+  "/DM-calculator/manifest.webmanifest",
+  "/DM-calculator/icon-192.png",
+  "/DM-calculator/icon-512.png",
+  "/DM-calculator/apple-touch-icon.png"
 ];
 
 self.addEventListener("install", event => {
@@ -23,5 +23,7 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  const url = new URL(event.request.url);
+  if (!url.pathname.startsWith("/DM-calculator/")) return;
   event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request)));
 });

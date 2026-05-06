@@ -1,43 +1,37 @@
-# DM 계산기 PWA v2 - 표 추가 기능 포함
+# DM 계산기 PWA v3 - 설치 충돌 방지 버전
 
-수분값과 WM 수치를 입력하면 DM 수치가 자동 계산되는 웹앱/PWA입니다.
-이번 v2에서는 계산표를 필요한 만큼 아래로 추가할 수 있습니다.
+이 버전은 GitHub Pages 주소가 `/DM-calculator/`인 경우에 맞춰
+PWA 설치 ID, start_url, scope를 명확하게 분리한 버전입니다.
 
-## 주요 기능
+## 변경사항
 
-- 상단 `+ 표 추가` 버튼으로 계산표 추가
-- 각 계산표별 `표 복제`, `표 삭제`
-- 각 계산표별 제목 변경
-- 각 계산표별 수분값 입력
-- 항목명 수정 가능
-- 항목 행 추가 / 마지막 행 삭제
-- WM 입력 시 DM 자동 계산
-- 전체 결과 복사
-- 계산표별 결과 복사
-- CSV 다운로드
-- 브라우저 자동 저장
-- 갤럭시 홈 화면 추가용 PWA 구성
+- manifest `id`: `/DM-calculator/dm-calculator-app`
+- manifest `start_url`: `/DM-calculator/?app=dm-calculator`
+- manifest `scope`: `/DM-calculator/`
+- service worker scope: `/DM-calculator/`
+- manifest/icon/service worker 캐시 갱신용 버전 파라미터 적용
 
-## 계산식
+## 사용 목적
 
-DM = WM / (1 - 수분 / 100)
+같은 GitHub 계정에서 가격구조 계산기와 DM 계산기를 각각 설치할 때,
+Chrome이 이전에 설치한 가격구조 계산기를 여는 문제를 줄이기 위한 버전입니다.
 
-## GitHub Pages 업데이트 방법
+## 적용 방법
 
-기존 GitHub 저장소를 쓰는 경우:
+1. ZIP 파일 압축 해제
+2. 안의 파일들을 `DM-calculator` Repository 최상위에 덮어쓰기
+3. Commit changes
+4. 1~3분 대기
+5. Chrome에서 `https://sbcho-hash.github.io/DM-calculator/?reset=1` 접속
+6. 새로고침
+7. 주소창 오른쪽 설치 아이콘 또는 메뉴에서 앱 설치
 
-1. 이 ZIP 파일을 압축 해제합니다.
-2. 안에 있는 파일들을 기존 Repository 최상위 경로에 덮어씁니다.
-3. GitHub에서 `Commit changes`를 누릅니다.
-4. 1~3분 정도 기다린 뒤 기존 GitHub Pages 주소에 접속합니다.
-5. 갤럭시에서 이미 홈화면에 추가한 경우, 앱을 완전히 종료 후 다시 실행하거나 브라우저에서 새로고침합니다.
+## 그래도 가격구조 앱에서 열린다면
 
-## 신규 배포 방법
+Chrome에서 기존 가격구조 앱을 제거한 뒤 다시 설치하세요.
 
-1. GitHub에서 새 Repository를 만듭니다.
-2. 이 폴더 안의 파일들을 Repository 최상위 경로에 업로드합니다.
-3. Settings > Pages로 이동합니다.
-4. Source를 `Deploy from a branch`로 선택합니다.
-5. Branch를 `main`, Folder를 `/ root`로 선택한 뒤 Save를 누릅니다.
-6. 생성된 `https://계정명.github.io/저장소명/` 주소로 접속합니다.
-7. 갤럭시 Chrome 또는 Samsung Internet에서 홈 화면에 추가합니다.
+1. 주소창에 `chrome://apps` 입력
+2. `가격구조 계산기` 우클릭
+3. `Chrome에서 삭제`
+4. DM 계산기 주소로 다시 접속
+5. 앱 설치

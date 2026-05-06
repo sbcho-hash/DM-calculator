@@ -12,9 +12,9 @@
   <meta name="apple-mobile-web-app-title" content="DM 계산기" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="icon" href="./icon-192.png" type="image/png" />
-  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="/DM-calculator/manifest.webmanifest?v=dm-unique-v3" />
+  <link rel="icon" href="/DM-calculator/icon-192.png?v=dm-unique-v3" type="image/png" />
+  <link rel="apple-touch-icon" href="/DM-calculator/apple-touch-icon.png?v=dm-unique-v3" />
 
   <style>
     :root {
@@ -86,9 +86,7 @@
       cursor: pointer;
     }
 
-    button.secondary {
-      background: #475467;
-    }
+    button.secondary { background: #475467; }
 
     button.light {
       background: #eef4fb;
@@ -143,9 +141,7 @@
       background: #fff;
     }
 
-    input[type="text"] {
-      text-align: center;
-    }
+    input[type="text"] { text-align: center; }
 
     .title-input {
       min-width: 210px;
@@ -166,9 +162,7 @@
       flex-wrap: wrap;
     }
 
-    label {
-      font-weight: 800;
-    }
+    label { font-weight: 800; }
 
     .formula {
       color: var(--muted);
@@ -214,13 +208,8 @@
       width: 34%;
     }
 
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:nth-child(even) td {
-      background: #f8fafc;
-    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #f8fafc; }
 
     .dm {
       font-weight: 900;
@@ -297,8 +286,7 @@
   <script>
     const DEFAULT_ITEMS = ["단백질", "조지방", "조섬유", "조회분", "칼슘", "인"];
     const THEMES = ["theme-blue", "theme-green", "theme-yellow", "theme-gray"];
-    const STORAGE_KEY = "dm-calculator-v2-add-tables";
-    const OLD_STORAGE_KEY = "dm-calculator-v1";
+    const STORAGE_KEY = "dm-calculator-v3-unique-install";
 
     const app = document.getElementById("app");
     const globalNotice = document.getElementById("globalNotice");
@@ -317,11 +305,7 @@
     }
 
     function defaultState() {
-      return {
-        sections: [
-          makeDefaultSection("계산표 1")
-        ]
-      };
+      return { sections: [makeDefaultSection("계산표 1")] };
     }
 
     let state = loadState();
@@ -331,6 +315,11 @@
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
+          if (parsed.sections && Array.isArray(parsed.sections)) return parsed;
+        }
+        const old = localStorage.getItem("dm-calculator-v2-add-tables");
+        if (old) {
+          const parsed = JSON.parse(old);
           if (parsed.sections && Array.isArray(parsed.sections)) return parsed;
         }
         return defaultState();
@@ -620,7 +609,7 @@
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(() => {
+        navigator.serviceWorker.register("/DM-calculator/sw.js?v=dm-unique-v3", { scope: "/DM-calculator/" }).catch(() => {
           globalNotice.textContent = "서비스워커 등록에 실패했습니다. HTTPS 주소 또는 GitHub Pages 주소에서 다시 접속해 주세요.";
         });
       });
