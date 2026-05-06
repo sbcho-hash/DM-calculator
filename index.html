@@ -26,6 +26,11 @@
       --text: #1f2937;
       --muted: #667085;
       --error: #b42318;
+      --danger: #b42318;
+      --blue: #eef4fb;
+      --green: #e5f0db;
+      --yellow: #fff2cc;
+      --gray: #eeeeee;
     }
 
     * { box-sizing: border-box; }
@@ -38,12 +43,10 @@
     }
 
     .wrap {
-      max-width: 780px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 24px;
     }
-
-    .header { margin-bottom: 18px; }
 
     h1 {
       margin: 0 0 6px;
@@ -54,28 +57,81 @@
 
     .desc {
       color: var(--muted);
-      margin: 0;
+      margin: 0 0 18px;
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
-    .card {
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(246, 248, 251, 0.94);
+      backdrop-filter: blur(8px);
+      padding: 8px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      min-height: 42px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #475467;
+    }
+
+    button.light {
+      background: #eef4fb;
+      color: var(--primary-dark);
+      border: 1px solid #c9d7e6;
+    }
+
+    button.danger {
+      background: #fff1f0;
+      color: var(--danger);
+      border: 1px solid #f5c2bd;
+    }
+
+    .section {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 18px;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
       padding: 18px;
+      margin-bottom: 18px;
     }
 
-    .moisture-row {
+    .section-title {
       display: flex;
-      gap: 12px;
+      justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      gap: 12px;
+      margin-bottom: 14px;
       flex-wrap: wrap;
     }
 
-    label { font-weight: 800; }
+    .section-title h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #102a43;
+    }
+
+    .title-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
     input {
       width: 112px;
@@ -87,9 +143,31 @@
       background: #fff;
     }
 
+    input[type="text"] {
+      text-align: center;
+    }
+
+    .title-input {
+      min-width: 210px;
+      text-align: left !important;
+      font-weight: 800;
+    }
+
     input:focus {
       outline: 3px solid rgba(31, 78, 121, 0.16);
       border-color: var(--primary);
+    }
+
+    .moisture-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    label {
+      font-weight: 800;
     }
 
     .formula {
@@ -107,7 +185,7 @@
 
     table {
       width: 100%;
-      min-width: 420px;
+      min-width: 520px;
       border-collapse: collapse;
       overflow: hidden;
     }
@@ -116,6 +194,7 @@
       border-bottom: 1px solid var(--border);
       padding: 10px;
       text-align: center;
+      white-space: nowrap;
     }
 
     th {
@@ -124,13 +203,24 @@
       font-weight: 900;
     }
 
+    .theme-blue th { background: var(--blue); }
+    .theme-green th { background: var(--green); }
+    .theme-yellow th { background: var(--yellow); }
+    .theme-gray th { background: var(--gray); }
+
     td:first-child {
       text-align: left;
       font-weight: 800;
       width: 34%;
     }
 
-    tr:last-child td { border-bottom: none; }
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
 
     .dm {
       font-weight: 900;
@@ -138,31 +228,11 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .btn-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      border: none;
-      border-radius: 10px;
-      padding: 10px 12px;
-      background: var(--primary);
-      color: white;
-      font-weight: 800;
-      cursor: pointer;
-      min-height: 42px;
-    }
-
-    button.secondary { background: #475467; }
-
     .notice {
-      margin-top: 12px;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.5;
+      margin-top: 12px;
     }
 
     .notice.error {
@@ -170,10 +240,32 @@
       font-weight: 800;
     }
 
-    @media (max-width: 520px) {
-      .wrap { padding: 16px; }
+    .mini-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .formula-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #475467;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 14px; }
       h1 { font-size: 24px; }
+      .section { padding: 14px; }
       .formula { margin-left: 0; width: 100%; }
+      .title-input { min-width: 100%; }
+      .title-actions { width: 100%; }
+      .title-actions button { flex: 1; }
       input { width: 98px; }
       th, td { padding: 8px 6px; font-size: 14px; }
     }
@@ -181,72 +273,190 @@
 </head>
 <body>
   <main class="wrap">
-    <section class="header">
-      <h1>DM 계산기</h1>
-      <p class="desc">수분값과 WM 수치를 입력하면 DM 수치가 자동 계산됩니다. 갤럭시 홈 화면에 추가해 앱처럼 사용할 수 있습니다.</p>
-    </section>
+    <h1>DM 계산기</h1>
+    <p class="desc">수분값과 WM 수치를 입력하면 DM 수치가 자동 계산됩니다. 표는 필요한 만큼 아래로 계속 추가할 수 있습니다.</p>
 
-    <section class="card">
-      <div class="moisture-row">
-        <label for="moisture">수분값 (%)</label>
-        <input id="moisture" type="number" min="0" max="99.99" step="0.01" value="0" inputmode="decimal" />
-        <span class="formula">DM = WM / (1 - 수분 / 100)</span>
-      </div>
+    <div class="top-actions">
+      <button type="button" onclick="addSection()">+ 표 추가</button>
+      <button type="button" onclick="copyAllResults()">전체 결과 복사</button>
+      <button type="button" class="secondary" onclick="resetAll()">전체 초기화</button>
+      <button type="button" class="light" onclick="downloadCsv()">CSV 다운로드</button>
+    </div>
 
-      <div class="table-wrap">
-        <table aria-label="DM 계산표">
-          <thead>
-            <tr>
-              <th>항목</th>
-              <th>WM</th>
-              <th>DM</th>
-            </tr>
-          </thead>
-          <tbody id="rows"></tbody>
-        </table>
-      </div>
+    <div id="app"></div>
 
-      <div class="btn-row">
-        <button type="button" onclick="copyResults()">결과 복사</button>
-        <button type="button" class="secondary" onclick="resetValues()">초기화</button>
-      </div>
+    <div class="formula-box">
+      <strong>계산식</strong><br />
+      DM = WM / (1 - 수분 / 100)<br />
+      예: 수분 75%, WM 단백질 10% → 10 / (1 - 0.75) = 40.00
+    </div>
 
-      <div class="notice" id="notice">수분값은 0 이상 100 미만으로 입력해 주세요.</div>
-    </section>
+    <div class="notice" id="globalNotice">상단의 “+ 표 추가” 버튼을 누르면 DM 계산표가 아래에 추가됩니다.</div>
   </main>
 
   <script>
-    const items = ["단백질", "조지방", "조섬유", "조회분", "칼슘", "인"];
-    const rows = document.getElementById("rows");
-    const moistureInput = document.getElementById("moisture");
-    const notice = document.getElementById("notice");
+    const DEFAULT_ITEMS = ["단백질", "조지방", "조섬유", "조회분", "칼슘", "인"];
+    const THEMES = ["theme-blue", "theme-green", "theme-yellow", "theme-gray"];
+    const STORAGE_KEY = "dm-calculator-v2-add-tables";
+    const OLD_STORAGE_KEY = "dm-calculator-v1";
 
-    function makeRows() {
-      rows.innerHTML = items.map((item, idx) => `
-        <tr>
-          <td>${item}</td>
-          <td><input class="wm" data-index="${idx}" type="number" step="0.01" min="0" inputmode="decimal" placeholder="0.00"></td>
-          <td class="dm" id="dm-${idx}">0.00</td>
-        </tr>
-      `).join("");
+    const app = document.getElementById("app");
+    const globalNotice = document.getElementById("globalNotice");
 
-      document.querySelectorAll(".wm").forEach(input => {
-        input.addEventListener("input", calculate);
+    function makeId() {
+      return "s" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    }
+
+    function makeDefaultSection(title = "계산표") {
+      return {
+        id: makeId(),
+        title,
+        moisture: "0",
+        rows: DEFAULT_ITEMS.map(item => ({ item, wm: "" }))
+      };
+    }
+
+    function defaultState() {
+      return {
+        sections: [
+          makeDefaultSection("계산표 1")
+        ]
+      };
+    }
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.sections && Array.isArray(parsed.sections)) return parsed;
+        }
+        return defaultState();
+      } catch {
+        return defaultState();
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function getSection(sid) {
+      return state.sections.find(s => s.id === sid);
+    }
+
+    function toNum(value) {
+      const n = parseFloat(String(value).replaceAll(",", ""));
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function build() {
+      app.innerHTML = state.sections.map((section, index) => sectionTemplate(section, index)).join("");
+      bindEvents();
+      calculateAll();
+      saveState();
+    }
+
+    function sectionTemplate(section, index) {
+      const theme = THEMES[index % THEMES.length];
+
+      return `
+        <section class="section" data-section-id="${section.id}">
+          <div class="section-title">
+            <h2>${escapeHtml(section.title || `계산표 ${index + 1}`)}</h2>
+            <div class="title-actions">
+              <input class="title-input" type="text" data-field="title" value="${escapeHtml(section.title)}" aria-label="계산표명" />
+              <button type="button" class="light" onclick="duplicateSection('${section.id}')">표 복제</button>
+              <button type="button" class="danger" onclick="deleteSection('${section.id}')">표 삭제</button>
+            </div>
+          </div>
+
+          <div class="moisture-row">
+            <label for="moisture-${section.id}">수분값 (%)</label>
+            <input id="moisture-${section.id}" data-field="moisture" type="number" min="0" max="99.99" step="0.01" value="${section.moisture}" inputmode="decimal" />
+            <span class="formula">DM = WM / (1 - 수분 / 100)</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="${theme}" aria-label="DM 계산표">
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th>WM</th>
+                  <th>DM</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${section.rows.map((row, idx) => `
+                  <tr data-row="${idx}">
+                    <td><input type="text" data-row-field="item" value="${escapeHtml(row.item)}" placeholder="항목명"></td>
+                    <td><input type="number" data-row-field="wm" value="${row.wm}" step="0.01" min="0" inputmode="decimal" placeholder="0.00"></td>
+                    <td class="dm" data-out="dm">0.00</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mini-actions">
+            <button type="button" class="light" onclick="copySection('${section.id}')">이 계산표 복사</button>
+            <button type="button" class="light" onclick="addRow('${section.id}')">항목 행 추가</button>
+            <button type="button" class="light" onclick="removeLastRow('${section.id}')">마지막 행 삭제</button>
+          </div>
+
+          <div class="notice" data-out="notice">수분값은 0 이상 100 미만으로 입력해 주세요.</div>
+        </section>
+      `;
+    }
+
+    function bindEvents() {
+      document.querySelectorAll("[data-section-id]").forEach(sectionEl => {
+        const sid = sectionEl.dataset.sectionId;
+        const section = getSection(sid);
+
+        sectionEl.querySelector("[data-field='title']").addEventListener("input", e => {
+          section.title = e.target.value;
+          sectionEl.querySelector("h2").textContent = e.target.value || "계산표";
+          saveState();
+        });
+
+        sectionEl.querySelector("[data-field='moisture']").addEventListener("input", e => {
+          section.moisture = e.target.value;
+          saveState();
+          calculateSection(sid);
+        });
+
+        sectionEl.querySelectorAll("tr[data-row]").forEach(rowEl => {
+          const rowIndex = Number(rowEl.dataset.row);
+          rowEl.querySelectorAll("[data-row-field]").forEach(input => {
+            input.addEventListener("input", e => {
+              section.rows[rowIndex][e.target.dataset.rowField] = e.target.value;
+              saveState();
+              calculateSection(sid);
+            });
+          });
+        });
       });
     }
 
-    function numberOrZero(value) {
-      const num = parseFloat(value);
-      return Number.isFinite(num) ? num : 0;
+    function calculateAll() {
+      state.sections.forEach(section => calculateSection(section.id));
     }
 
-    function calculate() {
-      const moisture = parseFloat(moistureInput.value);
+    function calculateSection(sid) {
+      const section = getSection(sid);
+      const sectionEl = document.querySelector(`[data-section-id="${sid}"]`);
+      if (!section || !sectionEl) return;
+
+      const moisture = parseFloat(section.moisture);
+      const notice = sectionEl.querySelector("[data-out='notice']");
 
       if (!Number.isFinite(moisture) || moisture < 0 || moisture >= 100) {
         notice.textContent = "수분값 오류: 수분값은 0 이상 100 미만으로 입력해야 합니다.";
         notice.classList.add("error");
-        document.querySelectorAll(".dm").forEach(el => el.textContent = "오류");
+        sectionEl.querySelectorAll("[data-out='dm']").forEach(el => el.textContent = "오류");
         return;
       }
 
@@ -255,53 +465,164 @@
 
       const denominator = 1 - (moisture / 100);
 
-      document.querySelectorAll(".wm").forEach(input => {
-        const idx = input.dataset.index;
-        const wm = numberOrZero(input.value);
+      sectionEl.querySelectorAll("tr[data-row]").forEach(rowEl => {
+        const idx = Number(rowEl.dataset.row);
+        const wm = toNum(section.rows[idx].wm);
         const dm = wm / denominator;
-        document.getElementById(`dm-${idx}`).textContent = dm.toFixed(2);
+        rowEl.querySelector("[data-out='dm']").textContent = dm.toFixed(2);
       });
     }
 
-    async function copyResults() {
-      const moisture = moistureInput.value || "0";
-      const lines = [`수분값: ${moisture}%`, "항목\tWM\tDM"];
+    function addSection() {
+      const nextNumber = state.sections.length + 1;
+      state.sections.push(makeDefaultSection(`계산표 ${nextNumber}`));
+      saveState();
+      build();
+      setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 50);
+      globalNotice.textContent = `계산표 ${nextNumber}이(가) 추가되었습니다.`;
+    }
 
-      document.querySelectorAll(".wm").forEach((input, idx) => {
-        const wm = input.value || "0";
-        const dm = document.getElementById(`dm-${idx}`).textContent;
-        lines.push(`${items[idx]}\t${wm}\t${dm}`);
+    function duplicateSection(sid) {
+      const source = getSection(sid);
+      if (!source) return;
+      const copy = JSON.parse(JSON.stringify(source));
+      copy.id = makeId();
+      copy.title = `${source.title || "계산표"} 복사본`;
+      state.sections.push(copy);
+      saveState();
+      build();
+      setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 50);
+      globalNotice.textContent = "계산표가 복제되어 아래에 추가되었습니다.";
+    }
+
+    function deleteSection(sid) {
+      if (state.sections.length <= 1) {
+        alert("계산표는 최소 1개 이상 필요합니다.");
+        return;
+      }
+      const section = getSection(sid);
+      if (!confirm(`"${section?.title || "계산표"}"를 삭제할까요?`)) return;
+      state.sections = state.sections.filter(s => s.id !== sid);
+      saveState();
+      build();
+      globalNotice.textContent = "계산표가 삭제되었습니다.";
+    }
+
+    function addRow(sid) {
+      const section = getSection(sid);
+      if (!section) return;
+      section.rows.push({ item: "항목", wm: "" });
+      saveState();
+      build();
+      globalNotice.textContent = "항목 행이 추가되었습니다.";
+    }
+
+    function removeLastRow(sid) {
+      const section = getSection(sid);
+      if (!section) return;
+      if (section.rows.length <= 1) {
+        alert("항목 행은 최소 1개 이상 필요합니다.");
+        return;
+      }
+      section.rows.pop();
+      saveState();
+      build();
+      globalNotice.textContent = "마지막 항목 행이 삭제되었습니다.";
+    }
+
+    function sectionLines(sid) {
+      const section = getSection(sid);
+      if (!section) return [];
+
+      const moisture = parseFloat(section.moisture);
+      const denominator = Number.isFinite(moisture) ? 1 - (moisture / 100) : NaN;
+
+      const lines = [
+        `[${section.title}]`,
+        `수분값\t${section.moisture || "0"}%`,
+        "항목\tWM\tDM"
+      ];
+
+      section.rows.forEach(row => {
+        const wm = toNum(row.wm);
+        const dm = Number.isFinite(denominator) && denominator > 0 ? wm / denominator : NaN;
+        lines.push([
+          row.item || "",
+          row.wm || "0",
+          Number.isFinite(dm) ? dm.toFixed(2) : "오류"
+        ].join("\t"));
       });
 
+      return lines;
+    }
+
+    function copySection(sid) {
+      const section = getSection(sid);
+      copyText(sectionLines(sid).join("\n"));
+      globalNotice.textContent = `${section?.title || "계산표"} 결과가 복사되었습니다.`;
+    }
+
+    function copyAllResults() {
+      const lines = [];
+      state.sections.forEach(section => {
+        lines.push(...sectionLines(section.id), "");
+      });
+      copyText(lines.join("\n"));
+      globalNotice.textContent = "전체 결과가 클립보드에 복사되었습니다.";
+    }
+
+    async function copyText(text) {
       try {
-        await navigator.clipboard.writeText(lines.join("\n"));
-        notice.textContent = "결과가 클립보드에 복사되었습니다.";
-        notice.classList.remove("error");
+        await navigator.clipboard.writeText(text);
       } catch {
-        notice.textContent = "복사 기능을 사용할 수 없습니다. 브라우저 권한을 확인해 주세요.";
-        notice.classList.add("error");
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
       }
     }
 
-    function resetValues() {
-      moistureInput.value = "0";
-      document.querySelectorAll(".wm").forEach(input => input.value = "");
-      calculate();
-      notice.textContent = "입력값이 초기화되었습니다.";
-      notice.classList.remove("error");
+    function downloadCsv() {
+      const lines = [];
+      state.sections.forEach(section => {
+        sectionLines(section.id).forEach(line => lines.push(line.replaceAll("\t", ",")));
+        lines.push("");
+      });
+      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "DM_계산결과.csv";
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
-    moistureInput.addEventListener("input", calculate);
-    makeRows();
-    calculate();
+    function resetAll() {
+      if (!confirm("전체 입력값을 초기화할까요?")) return;
+      state = defaultState();
+      saveState();
+      build();
+      globalNotice.textContent = "전체 입력값이 초기화되었습니다.";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    build();
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js", { scope: "./" })
-          .catch(() => {
-            notice.textContent = "서비스워커 등록에 실패했습니다. HTTPS 주소 또는 GitHub Pages 주소에서 다시 접속해 주세요.";
-            notice.classList.add("error");
-          });
+        navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(() => {
+          globalNotice.textContent = "서비스워커 등록에 실패했습니다. HTTPS 주소 또는 GitHub Pages 주소에서 다시 접속해 주세요.";
+        });
       });
     }
   </script>

@@ -1,32 +1,43 @@
-# DM 계산기 PWA - GitHub Pages 배포용
+# DM 계산기 PWA v2 - 표 추가 기능 포함
 
-이 폴더의 파일들을 GitHub 저장소 최상위 경로에 업로드하면 GitHub Pages로 배포할 수 있습니다.
+수분값과 WM 수치를 입력하면 DM 수치가 자동 계산되는 웹앱/PWA입니다.
+이번 v2에서는 계산표를 필요한 만큼 아래로 추가할 수 있습니다.
 
-## 포함 파일
+## 주요 기능
 
-- index.html
-- manifest.webmanifest
-- sw.js
-- icon-192.png
-- icon-512.png
-- apple-touch-icon.png
-- .nojekyll
+- 상단 `+ 표 추가` 버튼으로 계산표 추가
+- 각 계산표별 `표 복제`, `표 삭제`
+- 각 계산표별 제목 변경
+- 각 계산표별 수분값 입력
+- 항목명 수정 가능
+- 항목 행 추가 / 마지막 행 삭제
+- WM 입력 시 DM 자동 계산
+- 전체 결과 복사
+- 계산표별 결과 복사
+- CSV 다운로드
+- 브라우저 자동 저장
+- 갤럭시 홈 화면 추가용 PWA 구성
 
 ## 계산식
 
 DM = WM / (1 - 수분 / 100)
 
-## 갤럭시 홈 화면 추가 전제
+## GitHub Pages 업데이트 방법
 
-PWA처럼 설치하려면 일반적으로 `file:///` 경로가 아니라 `https://` 웹주소에서 접속해야 합니다.
-GitHub Pages로 배포하면 HTTPS 주소가 제공됩니다.
+기존 GitHub 저장소를 쓰는 경우:
 
-## GitHub Pages 기본 흐름
+1. 이 ZIP 파일을 압축 해제합니다.
+2. 안에 있는 파일들을 기존 Repository 최상위 경로에 덮어씁니다.
+3. GitHub에서 `Commit changes`를 누릅니다.
+4. 1~3분 정도 기다린 뒤 기존 GitHub Pages 주소에 접속합니다.
+5. 갤럭시에서 이미 홈화면에 추가한 경우, 앱을 완전히 종료 후 다시 실행하거나 브라우저에서 새로고침합니다.
 
-1. GitHub에서 새 Repository 생성
-2. 이 폴더 안의 파일들을 Repository 루트에 업로드
-3. Settings > Pages 이동
-4. Source: Deploy from a branch 선택
-5. Branch: main / root 선택 후 Save
-6. 생성된 `https://계정명.github.io/저장소명/` 주소로 접속
-7. 갤럭시 Chrome 또는 Samsung Internet에서 홈 화면에 추가
+## 신규 배포 방법
+
+1. GitHub에서 새 Repository를 만듭니다.
+2. 이 폴더 안의 파일들을 Repository 최상위 경로에 업로드합니다.
+3. Settings > Pages로 이동합니다.
+4. Source를 `Deploy from a branch`로 선택합니다.
+5. Branch를 `main`, Folder를 `/ root`로 선택한 뒤 Save를 누릅니다.
+6. 생성된 `https://계정명.github.io/저장소명/` 주소로 접속합니다.
+7. 갤럭시 Chrome 또는 Samsung Internet에서 홈 화면에 추가합니다.
