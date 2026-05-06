@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DM 계산기</title>
+
+  <meta name="description" content="수분값과 WM 수치를 입력하면 DM 수치가 자동 계산되는 계산기입니다." />
+  <meta name="theme-color" content="#1f4e79" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="DM 계산기" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon-192.png" type="image/png" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+  <style>
+    :root {
+      --primary: #1f4e79;
+      --primary-dark: #173b5c;
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --border: #d9e0ea;
+      --text: #1f2937;
+      --muted: #667085;
+      --error: #b42318;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header { margin-bottom: 18px; }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .desc {
+      color: var(--muted);
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      padding: 18px;
+    }
+
+    .moisture-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    label { font-weight: 800; }
+
+    input {
+      width: 112px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-align: right;
+      font-size: 15px;
+      background: #fff;
+    }
+
+    input:focus {
+      outline: 3px solid rgba(31, 78, 121, 0.16);
+      border-color: var(--primary);
+    }
+
+    .formula {
+      color: var(--muted);
+      font-size: 13px;
+      margin-left: auto;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 420px;
+      border-collapse: collapse;
+      overflow: hidden;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #eef4fb;
+      color: var(--primary-dark);
+      font-weight: 900;
+    }
+
+    td:first-child {
+      text-align: left;
+      font-weight: 800;
+      width: 34%;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .dm {
+      font-weight: 900;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: var(--primary);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      min-height: 42px;
+    }
+
+    button.secondary { background: #475467; }
+
+    .notice {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .notice.error {
+      color: var(--error);
+      font-weight: 800;
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 16px; }
+      h1 { font-size: 24px; }
+      .formula { margin-left: 0; width: 100%; }
+      input { width: 98px; }
+      th, td { padding: 8px 6px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="header">
+      <h1>DM 계산기</h1>
+      <p class="desc">수분값과 WM 수치를 입력하면 DM 수치가 자동 계산됩니다. 갤럭시 홈 화면에 추가해 앱처럼 사용할 수 있습니다.</p>
+    </section>
+
+    <section class="card">
+      <div class="moisture-row">
+        <label for="moisture">수분값 (%)</label>
+        <input id="moisture" type="number" min="0" max="99.99" step="0.01" value="0" inputmode="decimal" />
+        <span class="formula">DM = WM / (1 - 수분 / 100)</span>
+      </div>
+
+      <div class="table-wrap">
+        <table aria-label="DM 계산표">
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th>WM</th>
+              <th>DM</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" onclick="copyResults()">결과 복사</button>
+        <button type="button" class="secondary" onclick="resetValues()">초기화</button>
+      </div>
+
+      <div class="notice" id="notice">수분값은 0 이상 100 미만으로 입력해 주세요.</div>
+    </section>
+  </main>
+
+  <script>
+    const items = ["단백질", "조지방", "조섬유", "조회분", "칼슘", "인"];
+    const rows = document.getElementById("rows");
+    const moistureInput = document.getElementById("moisture");
+    const notice = document.getElementById("notice");
+
+    function makeRows() {
+      rows.innerHTML = items.map((item, idx) => `
+        <tr>
+          <td>${item}</td>
+          <td><input class="wm" data-index="${idx}" type="number" step="0.01" min="0" inputmode="decimal" placeholder="0.00"></td>
+          <td class="dm" id="dm-${idx}">0.00</td>
+        </tr>
+      `).join("");
+
+      document.querySelectorAll(".wm").forEach(input => {
+        input.addEventListener("input", calculate);
+      });
+    }
+
+    function numberOrZero(value) {
+      const num = parseFloat(value);
+      return Number.isFinite(num) ? num : 0;
+    }
+
+    function calculate() {
+      const moisture = parseFloat(moistureInput.value);
+
+      if (!Number.isFinite(moisture) || moisture < 0 || moisture >= 100) {
+        notice.textContent = "수분값 오류: 수분값은 0 이상 100 미만으로 입력해야 합니다.";
+        notice.classList.add("error");
+        document.querySelectorAll(".dm").forEach(el => el.textContent = "오류");
+        return;
+      }
+
+      notice.textContent = "수분값은 0 이상 100 미만으로 입력해 주세요.";
+      notice.classList.remove("error");
+
+      const denominator = 1 - (moisture / 100);
+
+      document.querySelectorAll(".wm").forEach(input => {
+        const idx = input.dataset.index;
+        const wm = numberOrZero(input.value);
+        const dm = wm / denominator;
+        document.getElementById(`dm-${idx}`).textContent = dm.toFixed(2);
+      });
+    }
+
+    async function copyResults() {
+      const moisture = moistureInput.value || "0";
+      const lines = [`수분값: ${moisture}%`, "항목\tWM\tDM"];
+
+      document.querySelectorAll(".wm").forEach((input, idx) => {
+        const wm = input.value || "0";
+        const dm = document.getElementById(`dm-${idx}`).textContent;
+        lines.push(`${items[idx]}\t${wm}\t${dm}`);
+      });
+
+      try {
+        await navigator.clipboard.writeText(lines.join("\n"));
+        notice.textContent = "결과가 클립보드에 복사되었습니다.";
+        notice.classList.remove("error");
+      } catch {
+        notice.textContent = "복사 기능을 사용할 수 없습니다. 브라우저 권한을 확인해 주세요.";
+        notice.classList.add("error");
+      }
+    }
+
+    function resetValues() {
+      moistureInput.value = "0";
+      document.querySelectorAll(".wm").forEach(input => input.value = "");
+      calculate();
+      notice.textContent = "입력값이 초기화되었습니다.";
+      notice.classList.remove("error");
+    }
+
+    moistureInput.addEventListener("input", calculate);
+    makeRows();
+    calculate();
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js", { scope: "./" })
+          .catch(() => {
+            notice.textContent = "서비스워커 등록에 실패했습니다. HTTPS 주소 또는 GitHub Pages 주소에서 다시 접속해 주세요.";
+            notice.classList.add("error");
+          });
+      });
+    }
+  </script>
+</body>
+</html>

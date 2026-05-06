@@ -1,0 +1,26 @@
+{
+  "name": "DM 계산기",
+  "short_name": "DM계산기",
+  "description": "수분값과 WM 수치를 입력하면 DM 수치가 자동 계산되는 계산기입니다.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f8fb",
+  "theme_color": "#1f4e79",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
